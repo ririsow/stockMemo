@@ -10,18 +10,11 @@ COPY package.json package-lock.json ./
 # 依存関係をインストール
 RUN npm install
 
-# アプリをビルド
-COPY . ./
-RUN npm run build
+# アプリのソースコードをコンテナにコピー
+COPY . .
 
-# 軽量なnginxイメージを使って、ビルドしたアプリをホスティング
-FROM nginx:alpine
+# 開発サーバーを起動
+CMD ["npm", "run", "dev"]
 
-# ビルドしたReactアプリをnginxの公開ディレクトリにコピー
-COPY --from=build /app/build /usr/share/nginx/html
-
-# コンテナ起動時にnginxを起動
-CMD ["nginx", "-g", "daemon off;"]
-
-# コンテナのポート80番を開放
-EXPOSE 80
+# コンテナのポート3000を開放
+EXPOSE 3000
