@@ -13,6 +13,10 @@ RUN npm install
 # アプリのソースコードをコンテナにコピー
 COPY . .
 
+
+# TypeScriptの型チェックとビルド
+RUN npm run build
+
 # 開発サーバーを起動
 CMD ["npm", "run", "dev"]
 
