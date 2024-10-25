@@ -1,0 +1,12 @@
+/* components/MainLayout.module.css */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* ビューポートの高さを占める */
+}
+
+.main {
+  flex: 1; /* ヘッダーとフッターを除く残りのスペースを占める */
+  padding: 20px;
+  background-color: #f9f9f9; /* 背景色を設定 */
+}
