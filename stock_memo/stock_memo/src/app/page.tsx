@@ -1,7 +1,15 @@
-import { HomeScreenComponent } from "@/components/home-screen"
+// pages/_app.js
+import { AppProps } from 'next/app';
+import MainLayout from './layouts/MainLayout';
 
-export default function Home() {
+import './globals.css'; 
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <HomeScreenComponent/>
+    <MainLayout>
+      <Component {...pageProps} /> {/* 各ページコンポーネントがここに挿入される */}
+    </MainLayout>
   );
-}
+};
+
+export default MyApp;
