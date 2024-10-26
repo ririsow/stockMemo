@@ -1,6 +1,6 @@
 // components/MainLayout.js
-import { Header } from '../../components/header'
-import { Footer } from '../../components/footer'
+import { Header } from '../components/header'
+import { Footer } from '../components/footer'
 import styles from './MainLayout.module.css'; // スタイルを適用するためのCSSモジュール
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
