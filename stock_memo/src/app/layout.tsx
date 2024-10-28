@@ -1,6 +1,7 @@
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import '../styles/globals.css'
+import { Navigation } from '@/components/navigation'
 
 export default function RootLayout({
   children,
@@ -14,6 +15,7 @@ export default function RootLayout({
         <main className="flex-grow flex items-center justify-center p-4">
           {children}
         </main>
+        <Navigation />
         <Footer />
       </body>
     </html>
