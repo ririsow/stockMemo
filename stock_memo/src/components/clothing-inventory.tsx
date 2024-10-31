@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { format } from 'date-fns'
@@ -18,6 +18,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
+// Define schema for form validation
 const formSchema = z.object({
   purchaseDate: z.date(),
   condition: z.enum(['new', 'used']),
@@ -31,10 +32,13 @@ const formSchema = z.object({
   image: z.instanceof(File).optional(),
 })
 
-export function ClothingInventoryComponent() {
+// Infer TypeScript type from schema
+type FormData = z.infer<typeof formSchema>
+
+export function ClothingInventoryComponent(): JSX.Element {
   const [image, setImage] = useState<File | null>(null)
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       condition: 'new',
@@ -44,7 +48,7 @@ export function ClothingInventoryComponent() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit: SubmitHandler<FormData> = (values) => {
     console.log(values)
     // Here you would typically send this data to your backend or state management solution
   }

@@ -1,6 +1,4 @@
-'use client'
-
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Badge } from "@/components/ui/badge"
 import { db } from '@/lib/firebase'
-import { collection, addDoc } from 'firebase/firestore'
+import { collection, addDoc, getDocs } from 'firebase/firestore'
 
 const categories = ['トップス', 'ボトムス', 'アウター', '靴', 'アクセサリー']
 const colors = ['白', '黒', '赤', '青', '緑', '黄', 'ピンク', 'パープル', 'オレンジ', 'グレー']
@@ -18,7 +16,22 @@ export default function Register() {
   const [selectedColors, setSelectedColors] = useState<string[]>([])
   const [clothingName, setClothingName] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const router = useRouter()
+
+  useEffect(() => {
+    const checkFirestoreConnection = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'clothes'))
+        console.log('Firestore connection successful', querySnapshot.size)
+      } catch (error) {
+        console.error('Firestore connection error:', error)
+        setError(`データベースへの接続に問題があります: ${error instanceof Error ? error.message : '不明なエラー'}`)
+      }
+    }
+
+    checkFirestoreConnection()
+  }, [])
 
   const toggleCategory = (category: string) => {
     setSelectedCategories(prev => 
@@ -35,14 +48,16 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setError(null)
 
     if (!clothingName || selectedCategories.length === 0 || selectedColors.length === 0) {
-      alert("全ての必須項目を入力してください。")
+      setError("全ての必須項目を入力してください。")
       setIsSubmitting(false)
       return
     }
 
     try {
+      console.log('Submitting data:', { clothingName, selectedCategories, selectedColors })
       const docRef = await addDoc(collection(db, "clothes"), {
         name: clothingName,
         categories: selectedCategories,
@@ -50,18 +65,17 @@ export default function Register() {
         createdAt: new Date()
       })
 
+      console.log('Document written with ID: ', docRef.id)
       alert("衣類が正常に登録されました。")
 
-      // Reset form
       setClothingName('')
       setSelectedCategories([])
       setSelectedColors([])
 
-      // Navigate to confirmation page
       router.push('/register/confirmation')
     } catch (error) {
       console.error("Error adding document: ", error)
-      alert("登録中にエラーが発生しました。もう一度お試しください。")
+      setError(`登録中にエラーが発生しました: ${error instanceof Error ? error.message : '不明なエラー'}`)
     } finally {
       setIsSubmitting(false)
     }
@@ -73,6 +87,7 @@ export default function Register() {
         <CardTitle className="text-2xl font-bold text-gray-800">衣類登録</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6 p-6 bg-white">
+        {error && <div className="text-red-500 text-sm">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="space-y-2">
             <Label htmlFor="name">衣類名</Label>
