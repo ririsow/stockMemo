@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
@@ -8,7 +10,7 @@ import { Badge } from "@/components/ui/badge"
 import { db } from '@/lib/firebase'
 import { collection, addDoc, getDocs } from 'firebase/firestore'
 
-const categories = ['トップス', 'ボトムス', 'アウター', '靴', 'アクセサリー']
+const categories = ['testトップス', 'ボトムス', 'アウター', '靴', 'アクセサリー']
 const colors = ['白', '黒', '赤', '青', '緑', '黄', 'ピンク', 'パープル', 'オレンジ', 'グレー']
 
 export default function Register() {
@@ -20,13 +22,14 @@ export default function Register() {
   const router = useRouter()
 
   useEffect(() => {
+    // Firestoreの接続を確認
     const checkFirestoreConnection = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'clothes'))
         console.log('Firestore connection successful', querySnapshot.size)
       } catch (error) {
         console.error('Firestore connection error:', error)
-        setError(`データベースへの接続に問題があります: ${error instanceof Error ? error.message : '不明なエラー'}`)
+        setError('データベースへの接続に問題があります。')
       }
     }
 
@@ -68,14 +71,16 @@ export default function Register() {
       console.log('Document written with ID: ', docRef.id)
       alert("衣類が正常に登録されました。")
 
+      // Reset form
       setClothingName('')
       setSelectedCategories([])
       setSelectedColors([])
 
+      // Navigate to confirmation page
       router.push('/register/confirmation')
     } catch (error) {
       console.error("Error adding document: ", error)
-      setError(`登録中にエラーが発生しました: ${error instanceof Error ? error.message : '不明なエラー'}`)
+      setError("登録中にエラーが発生しました。もう一度お試しください。")
     } finally {
       setIsSubmitting(false)
     }
