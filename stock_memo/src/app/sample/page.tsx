@@ -1,73 +1,39 @@
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  DocumentData,
-  FirestoreDataConverter,
-  getDocs,
-  QueryDocumentSnapshot,
-  serverTimestamp,
-  setDoc,
-  SnapshotOptions,
-} from 'firebase/firestore';
 
+"use client";
+
+// app/register/page.jsx
+import { useState } from 'react';
+import { addDoc, collection } from 'firebase/firestore';
 import { db } from '@/lib/firebase'
 
+export default function RegisterPage() {
+  const [inputValue, setInputValue] = useState('');
 
-export type todoType = {
-  uid: string;
-  text: string;
-  timestamp?: Date;
-  done: boolean;
-};
-
-export const useFireStore = () => {
-  const todoConverter: FirestoreDataConverter<todoType> = {
-    fromFirestore(
-      snapshot: QueryDocumentSnapshot,
-      options: SnapshotOptions
-    ): todoType {
-      const data = snapshot.data(options);
-      return {
-        uid: snapshot.id,
-        done: data.done,
-        text: data.text,
-        timestamp: data.timestamp.toDate(),
-      };
-    },
-    toFirestore(todo: todoType): DocumentData {
-      return {
-        text: todo.text,
-        done: todo.done,
-        timestamp: todo.timestamp ? todo.timestamp : serverTimestamp(),
-      };
-    },
+  // Firestoreにデータを登録する関数
+  const handleRegister = async () => {
+    try {
+      const docRef = await addDoc(collection(db, 'yourCollectionName'), {
+        content: inputValue,
+        createdAt: new Date(),
+      });
+      alert('データが登録されました。ドキュメントID: ' + docRef.id);
+      setInputValue(''); // 入力値をリセット
+    } catch (error) {
+      console.error('登録中にエラーが発生しました:', error);
+      alert('登録に失敗しました。');
+    }
   };
 
-  const createTodo = async (todo: todoType): Promise<void> => {
-    const collRef = collection(db, 'todo').withConverter(todoConverter);
-    await addDoc(collRef, todo);
-  };
-
-  const readTodo = async (): Promise<todoType[]> => {
-    const collRef = collection(db, 'todo').withConverter(todoConverter);
-    const snapshot = await getDocs(collRef);
-    const result = snapshot.docs.map((doc) => doc.data());
-    return result;
-  };
-
-  const updateTodo = async (todo: todoType): Promise<void> => {
-		const collRef = collection(db, 'todo');
-    const docRef = doc(collRef, todo.uid);
-    await setDoc(docRef, todo);
-  };
-
-  const deleteTodo = async (uid: string): Promise<void> => {
-		const collRef = collection(db, 'todo');
-    const docRef = doc(collRef, uid);
-    await deleteDoc(docRef);
-  };
-
-  return { createTodo, readTodo, updateTodo, deleteTodo };
-};
+  return (
+    <div>
+      <h1>データ登録</h1>
+      <input
+        type="text"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder="データを入力"
+      />
+      <button onClick={handleRegister}>Firestoreに登録</button>
+    </div>
+  );
+}

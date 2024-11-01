@@ -16,9 +16,11 @@ export default function Home() {
             <span className="flex-grow text-left">登録</span>
           </Link>
         </Button>
-        <Button className="w-full h-16 text-lg justify-start px-4" variant="outline">
-          <ClipboardList className="mr-3 h-6 w-6 text-blue-500" />
-          <span className="flex-grow text-left">棚卸し</span>
+        <Button className="w-full h-16 text-lg justify-start px-4" variant="outline" asChild>
+          <Link href="/sample">
+            <ClipboardList className="mr-3 h-6 w-6 text-blue-500" />
+            <span className="flex-grow text-left">棚卸し</span>
+          </Link>
         </Button>
         <Button className="w-full h-16 text-lg justify-start px-4" variant="outline">
           <Layers className="mr-3 h-6 w-6 text-orange-500" />
