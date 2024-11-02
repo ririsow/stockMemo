@@ -69,7 +69,7 @@ export default function Register() {
       })
 
       console.log('Document written with ID: ', docRef.id)
-      alert("衣類が正常に登録されました。")
+      // alert("衣類が正常に登録されました。")
 
       // Reset form
       setClothingName('')
