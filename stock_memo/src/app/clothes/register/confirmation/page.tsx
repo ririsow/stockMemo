@@ -32,7 +32,7 @@ export default function RegistrationComplete() {
           <Button 
             variant="outline" 
             className="w-full" 
-            onClick={() => router.push('/register')}
+            onClick={() => router.push('/clothes/register')}
           >
             新しい衣類を登録する
           </Button>

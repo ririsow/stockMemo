@@ -11,7 +11,7 @@ export default function Home() {
       </CardHeader>
       <CardContent className="space-y-4 p-6 bg-white">
         <Button className="w-full h-16 text-lg justify-start px-4" variant="outline" asChild>
-          <Link href="/register">
+          <Link href="/clothes/register">
             <ShirtIcon className="mr-3 h-6 w-6 text-green-500" />
             <span className="flex-grow text-left">登録</span>
           </Link>
