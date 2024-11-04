@@ -77,7 +77,7 @@ export default function Register() {
       setSelectedColors([])
 
       // Navigate to confirmation page
-      router.push('clothes/register/confirmation')
+      router.push('register/confirmation')
     } catch (error) {
       console.error("Error adding document: ", error)
       setError("登録中にエラーが発生しました。もう一度お試しください。")
