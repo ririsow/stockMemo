@@ -19,7 +19,7 @@ export default function RegistrationComplete() {
         </CardHeader>
         <CardContent className="text-center">
           <p className="text-gray-600">
-            衣類の登録が正常に完了しました。ありがsとうございます。
+            衣類の登録が正常に完了しました。ありがとうございます。
           </p>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
