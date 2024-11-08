@@ -17,7 +17,7 @@ export default function Home() {
           </Link>
         </Button>
         <Button className="w-full h-16 text-lg justify-start px-4" variant="outline" asChild>
-          <Link href="/sample">
+        <Link href="/clothes/list">
             <ClipboardList className="mr-3 h-6 w-6 text-blue-500" />
             <span className="flex-grow text-left">棚卸し</span>
           </Link>
