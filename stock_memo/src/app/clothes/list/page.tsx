@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/componen
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Loader2, Trash2 } from 'lucide-react'
-import { Pagination } from '@/components/pagination/pagination'
+import { Pagination } from '@/components/common/pagination/components/pagination'
 import { usePagination } from '@/hooks/usePagination'
 import { ClothingItem } from '@/types/ClothingItem'
 import { ITEMS_PER_PAGE } from '@/constants/itemsPerPage'
