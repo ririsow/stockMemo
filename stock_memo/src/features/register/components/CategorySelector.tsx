@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge"
-import { categories } from "@/constants/clothingOptions"
+import { CATEGORIES } from "@/constants/clothingOptions"
 
 interface CategorySelectorProps {
   selectedCategories: string[]
@@ -11,7 +11,7 @@ export function CategorySelector({ selectedCategories, toggleCategory }: Categor
     <div className="space-y-2 mt-4">
       <div>カテゴリー（複数選択可）</div>
       <div className="flex flex-wrap gap-2">
-        {categories.map((category) => (
+        {CATEGORIES.map((category) => (
           <Badge
             key={category}
             variant={selectedCategories.includes(category) ? "default" : "outline"}

@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge"
-import { colors } from "@/constants/clothingOptions"
+import { COLORS } from "@/constants/clothingOptions"
 
 interface ColorSelectorProps {
   selectedColors: string[]
@@ -11,7 +11,7 @@ export function ColorSelector({ selectedColors, toggleColor }: ColorSelectorProp
     <div className="space-y-2 mt-4">
       <div>色（複数選択可）</div>
       <div className="flex flex-wrap gap-2 max-w-md">
-        {colors.map((color) => (
+        {COLORS.map((color) => (
           <Badge
             key={color}
             variant={selectedColors.includes(color) ? "default" : "outline"}
