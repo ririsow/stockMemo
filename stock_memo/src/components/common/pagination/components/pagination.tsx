@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { cn } from "@/lib/utils"
-import type { PaginationProps } from '@/types/Pagination'
-// import { usePagination } from '@/hooks/usePagination'
+import type { PaginationProps } from '@/types/Pagination/Pagination'
+
 import { usePagination } from "../hooks"
 
 export function Pagination({
