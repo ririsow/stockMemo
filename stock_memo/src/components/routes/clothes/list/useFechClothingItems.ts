@@ -5,10 +5,19 @@ import { ClothingItem } from '@/types/ClothingItem'
 import { ITEMS_PER_PAGE } from '@/constants/itemsPerPage'
 
 export function useFetchClothingItems(currentPage: number) {
+  // 衣類アイテムのリストを保持
   const [clothingItems, setClothingItems] = useState<ClothingItem[]>([])
+  
+  // データのロード中かどうかを追跡
   const [loading, setLoading] = useState(true)
+  
+  // データ取得中にエラーが発生した場合のエラーメッセージを保持
   const [error, setError] = useState<string | null>(null)
+  
+  // 全体のアイテム数（ページネーション計算などに使用）
   const [totalItems, setTotalItems] = useState(0)
+  
+  // Firebaseのクエリで使用する「最後に取得したドキュメント」を保持（次のページ取得用）
   const [lastVisible, setLastVisible] = useState<any>(null)
 
   useEffect(() => {

@@ -38,9 +38,11 @@ export default function ProductList() {
       <h1 className="text-2xl font-bold mb-6">登録済み衣類一覧</h1>
       {clothingItems.length === 0 ? (
         <p className="text-center text-gray-500">登録された衣類はありません。</p>
+        
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* <p>{ clothingItems.length}</p> */}
             {clothingItems.map((item) => (
               <Card key={item.id}>
                 <CardHeader>
@@ -82,7 +84,7 @@ export default function ProductList() {
           </div>
           <Pagination
             currentPage={currentPage}
-            totalPages={Math.ceil(totalItems / 10)}
+            totalPages={Math.ceil(totalItems / 4)}
             onPageChange={goToPage}
           />
         </>
