@@ -5,6 +5,8 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { CategorySelector } from "./CategorySelector"
 import { ColorSelector } from "./ColorSelector"
+import { ImageUploader } from "./ImageUploder"
+import { ImageUploaderProps} from "@/types/Clothes/ImageUploaderProps"
 
 export function RegisterForm() {
   const {
@@ -14,6 +16,8 @@ export function RegisterForm() {
     toggleCategory,  // 追加
     selectedColors,
     toggleColor,     // 追加
+    imageFile, // 追加
+    setImageFile, // 追加
     error,
     isSubmitting,
     handleSubmit,
@@ -49,6 +53,8 @@ export function RegisterForm() {
             selectedColors={selectedColors} 
             toggleColor={toggleColor} 
           />
+          {/* 画像アップロード */}
+          <ImageUploader imageFile={imageFile} setImageFile={setImageFile} />
 
           <Button type="submit" className="w-full mt-6" disabled={isSubmitting}>
             {isSubmitting ? '登録中...' : '登録する'}
