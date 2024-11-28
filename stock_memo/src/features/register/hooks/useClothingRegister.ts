@@ -53,8 +53,11 @@ export function useClothingRegister() {
     try {
       let imageUrl = '';
 
+      console.log('imageFile');
+
       // 画像ファイルが存在する場合はアップロード
       if (imageFile) {
+        console.log(' 登録押下されてます');
         const storageRef = ref(storage, `clothes/${Date.now()}_${imageFile.name}`);
         const uploadResult = await uploadBytes(storageRef, imageFile);
         console.log('Image uploaded:', uploadResult);
